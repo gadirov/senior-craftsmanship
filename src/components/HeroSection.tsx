@@ -5,7 +5,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center section-padding pt-32">
       {/* Subtle gradient orb */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.05] blur-[120px] pointer-events-none" style={{ background: "var(--gradient-primary)" }} />
 
       <div className="container-narrow relative">
         <motion.div
