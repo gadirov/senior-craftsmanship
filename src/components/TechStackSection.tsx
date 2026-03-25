@@ -1,24 +1,45 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-const techStack = [
-  { name: "React", icon: "⚛️" },
-  { name: "TypeScript", icon: "🔷" },
-  { name: "Next.js", icon: "▲" },
-  { name: "JavaScript", icon: "🟨" },
-  { name: "Tailwind", icon: "🎨" },
-  { name: "Redux", icon: "🔄" },
-  { name: "Git", icon: "🔀" },
-  { name: "WebSocket", icon: "🔌" },
-  { name: "REST API", icon: "🌐" },
-  { name: "SCSS", icon: "💅" },
-  { name: "Keycloak", icon: "🔐" },
-  { name: "Chakra UI", icon: "⚡" },
+const techCategories = [
+  {
+    category: "Core",
+    items: ["HTML5", "CSS3", "JavaScript (ES6+)", "TypeScript", "React", "Next.js"],
+  },
+  {
+    category: "Styling",
+    items: ["SASS/SCSS", "Tailwind CSS", "Styled Components"],
+  },
+  {
+    category: "React Ecosystem",
+    items: ["React Hooks", "React Router Dom", "Context API", "Redux", "Redux Toolkit"],
+  },
+  {
+    category: "UI Frameworks",
+    items: ["Chakra UI", "Ant Design", "Shadcn UI", "Hero UI"],
+  },
+  {
+    category: "API & Backend",
+    items: ["RESTful APIs", "Fetch API", "Axios", "WebSockets", "Express.js", "Mock Server"],
+  },
+  {
+    category: "Auth & Security",
+    items: ["Keycloak", "Authentication", "Authorization"],
+  },
+  {
+    category: "Version Control",
+    items: ["Git", "GitHub", "GitLab"],
+  },
+  {
+    category: "Testing & QA",
+    items: ["Unit Testing", "Integration Testing"],
+  },
 ];
 
 const TechStackSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
     <section className="section-padding bg-gradient-subtle" ref={ref}>
@@ -35,17 +56,37 @@ const TechStackSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4">
-          {techStack.map((tech, i) => (
+        <div className="space-y-6">
+          {techCategories.map((cat, i) => (
             <motion.div
-              key={tech.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: 0.05 * i }}
-              className="flex flex-col items-center justify-center p-5 rounded-xl bg-card border border-border shadow-card hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 cursor-default"
+              key={cat.category}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.06 * i }}
+              onHoverStart={() => setActiveCategory(cat.category)}
+              onHoverEnd={() => setActiveCategory(null)}
+              className={`p-5 rounded-xl border transition-all duration-300 ${
+                activeCategory === cat.category
+                  ? "bg-card border-primary/30 shadow-elevated"
+                  : "bg-card border-border shadow-card"
+              }`}
             >
-              <span className="text-2xl mb-2">{tech.icon}</span>
-              <span className="text-xs font-medium text-foreground">{tech.name}</span>
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
+                {cat.category}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {cat.items.map((item, j) => (
+                  <motion.span
+                    key={item}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: 0.06 * i + 0.03 * j }}
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-secondary text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors duration-200 cursor-default"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

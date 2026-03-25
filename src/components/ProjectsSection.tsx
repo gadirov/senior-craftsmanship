@@ -1,39 +1,79 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 
 const projects = [
   {
-    title: "Real-Time Notification System",
-    category: "WebSocket",
-    problem: "Banking platform lacked real-time transaction alerts, leading to delayed user responses and poor engagement.",
-    solution: "Engineered a WebSocket-based notification system with React, delivering instant push alerts with graceful fallback mechanisms.",
-    technologies: ["React", "TypeScript", "WebSocket", "Redux Toolkit"],
-    impact: "Reduced notification latency by 95%, increased user engagement by 40%",
+    title: "React Rspack UI Kit",
+    category: "Architecture",
+    problem: "Teams needed a fast, optimized starter template for component-driven development with modern bundling tools.",
+    solution: "Built a React + TypeScript starter using Rspack bundler, Chakra UI, and Storybook — enabling rapid prototyping with optimized build performance.",
+    technologies: ["React", "TypeScript", "Rspack", "Chakra UI", "Storybook"],
+    impact: "Reduced build times by 60% compared to Webpack, enabling faster iteration cycles",
+    github: "https://github.com/gadirov/react-rspack-ui-kit",
   },
   {
-    title: "Role-Based Admin Dashboard",
-    category: "Enterprise",
-    problem: "Complex permission management across departments required a flexible, secure dashboard solution.",
-    solution: "Built a comprehensive role-based dashboard with Keycloak integration, dynamic route guards, and granular permission controls.",
-    technologies: ["React", "TypeScript", "Keycloak", "Ant Design"],
-    impact: "Managed 500+ users across 8 departments with zero unauthorized access incidents",
+    title: "Nx Monorepo Workspace",
+    category: "Architecture",
+    problem: "Managing multiple frontend applications and shared libraries across teams led to code duplication and inconsistent patterns.",
+    solution: "Architected an Nx monorepo workspace with shared component libraries, unified tooling, and optimized CI/CD pipelines for multi-app development.",
+    technologies: ["Nx", "TypeScript", "React", "Monorepo"],
+    impact: "Streamlined development across multiple apps with shared code, reducing duplication by 40%",
+    github: "https://github.com/gadirov/nx-workspace",
   },
   {
-    title: "Enterprise Admin Panel",
-    category: "Enterprise",
-    problem: "Legacy admin tools were slow, fragmented, and required significant training for new operators.",
-    solution: "Designed and developed a modern admin panel with data tables, real-time charts, and batch operations — reducing operator training time significantly.",
-    technologies: ["React", "TypeScript", "Ant Design", "REST API"],
-    impact: "Cut operator onboarding time by 60%, improved data processing speed by 3x",
-  },
-  {
-    title: "Performance-Optimized Aviation Portal",
+    title: "Resource Explorer App",
     category: "Performance",
-    problem: "Aviation academy's web portal had poor Core Web Vitals and slow page loads affecting student access.",
-    solution: "Rebuilt the frontend with code splitting, lazy loading, image optimization, and SSR-ready architecture.",
-    technologies: ["React", "Chakra UI", "React Query", "SEO"],
-    impact: "Achieved 95+ Lighthouse score, reduced initial load time by 70%",
+    problem: "Users needed a fast, responsive interface to search, filter, sort, and favorite items from a public API with real-time feedback.",
+    solution: "Developed a single-page React app with advanced search/filter/sort capabilities, favorites system, and optimized rendering for smooth UX.",
+    technologies: ["React", "TypeScript", "REST API", "State Management"],
+    impact: "Achieved sub-100ms search response times with client-side filtering and virtualized lists",
+    github: "https://github.com/gadirov/resource_explorer",
+  },
+  {
+    title: "Keycloak Auth Integration",
+    category: "Enterprise",
+    problem: "Enterprise applications required secure, role-based authentication with SSO capabilities across multiple services.",
+    solution: "Implemented a complete Keycloak authentication flow with React, including token management, role-based route guards, and session handling.",
+    technologies: ["React", "TypeScript", "Keycloak", "Authentication"],
+    impact: "Secured access for 500+ users with zero unauthorized access incidents across multiple applications",
+    github: "https://github.com/gadirov/react-keycloak-implementation-v2",
+  },
+  {
+    title: "Infinite Scroll & Pagination",
+    category: "Performance",
+    problem: "Loading large datasets caused performance bottlenecks and poor user experience with traditional pagination.",
+    solution: "Built an infinite scroll system using TanStack React Query's useInfiniteQuery and Intersection Observer for seamless data loading.",
+    technologies: ["React", "TypeScript", "React Query", "Intersection Observer"],
+    impact: "Reduced initial load time by 70% while handling 10,000+ records smoothly",
+    github: "https://github.com/gadirov/load-more-infinite-scroll-",
+  },
+  {
+    title: "ABB Onboarding Platform",
+    category: "Enterprise",
+    problem: "The bank needed a modern, user-friendly onboarding experience for new customers with complex form workflows.",
+    solution: "Developed a Next.js-based onboarding platform with multi-step forms, validation, and seamless API integration for customer data processing.",
+    technologies: ["Next.js", "TypeScript", "REST API", "SSR"],
+    impact: "Streamlined customer onboarding flow, reducing form abandonment and improving completion rates",
+    github: "https://github.com/gadirov/abbOnboarding",
+  },
+  {
+    title: "Mock API Server",
+    category: "Tools",
+    problem: "Frontend development was blocked by backend API dependencies, slowing down iteration and testing cycles.",
+    solution: "Created an Express.js-based mock API server simulating real backend endpoints, enabling frontend teams to develop and test independently.",
+    technologies: ["Express.js", "TypeScript", "REST API", "Mock Data"],
+    impact: "Eliminated frontend-backend dependency bottleneck, accelerating development velocity by 2x",
+    github: "https://github.com/gadirov/abbMockAPI",
+  },
+  {
+    title: "Event Management Platform",
+    category: "Full-Stack",
+    problem: "Organizing and managing events required a centralized platform with real-time updates and team collaboration features.",
+    solution: "Built a comprehensive event management app with React and TypeScript, featuring dynamic scheduling, team coordination, and responsive design.",
+    technologies: ["React", "TypeScript", "State Management", "UI/UX"],
+    impact: "Enabled efficient event coordination with intuitive UI and real-time team collaboration",
+    github: "https://github.com/gadirov/eventeam",
   },
 ];
 
@@ -97,10 +137,15 @@ const ProjectsSection = () => {
                   <span className="text-xs font-medium text-primary uppercase tracking-wider">{project.category}</span>
                   <h3 className="font-display text-xl font-bold text-foreground mt-1">{project.title}</h3>
                 </div>
-                <ArrowUpRight
-                  size={20}
-                  className="text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-1"
-                />
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors duration-200 mt-1"
+                >
+                  <Github size={16} />
+                  <ArrowUpRight size={14} />
+                </a>
               </div>
 
               <div className="space-y-4 mb-6">
