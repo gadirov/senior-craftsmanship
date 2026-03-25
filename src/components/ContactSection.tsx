@@ -11,14 +11,14 @@ const links = [
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/rufatgadirov",
-    href: "https://linkedin.com/in/rufatgadirov",
+    value: "linkedin.com/in/rufat-gadirov",
+    href: "https://linkedin.com/in/rufat-gadirov-427710221",
     icon: Linkedin,
   },
   {
     label: "GitHub",
-    value: "github.com/rufatgadirov",
-    href: "https://github.com/rufatgadirov",
+    value: "github.com/gadirov",
+    href: "https://github.com/gadirov",
     icon: Github,
   },
 ];

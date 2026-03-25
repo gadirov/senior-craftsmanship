@@ -4,7 +4,6 @@ import { ArrowDown, ExternalLink } from "lucide-react";
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center section-padding pt-32">
-      {/* Subtle gradient orb */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.05] blur-[120px] pointer-events-none" style={{ background: "var(--gradient-primary)" }} />
 
       <div className="container-narrow relative">
@@ -62,7 +61,6 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,8 +69,8 @@ const HeroSection = () => {
         >
           {[
             { value: "4+", label: "Years Experience" },
-            { value: "15+", label: "Projects Delivered" },
-            { value: "2", label: "Industries" },
+            { value: "30+", label: "Projects Delivered" },
+            { value: "4", label: "Industries" },
           ].map((stat) => (
             <div key={stat.label}>
               <div className="font-display text-3xl font-bold text-foreground">{stat.value}</div>
@@ -81,7 +79,6 @@ const HeroSection = () => {
           ))}
         </motion.div>
 
-        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
