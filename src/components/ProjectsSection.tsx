@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Github } from "lucide-react";
 
@@ -101,11 +101,6 @@ const ProjectsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [filter, setFilter] = useState("All");
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const gridY = useTransform(scrollYProgress, [0, 1], [40, -20]);
 
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
@@ -113,39 +108,27 @@ const ProjectsSection = () => {
     <section id="projects" className="section-padding overflow-hidden" ref={ref}>
       <div className="container-narrow">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-sm text-primary font-medium uppercase tracking-widest mb-3">Projects</p>
-          <div className="overflow-hidden">
-            <motion.h2
-              initial={{ y: "100%" }}
-              animate={inView ? { y: "0%" } : {}}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-8"
-            >
-              Case studies
-            </motion.h2>
-          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-8">
+            Case studies
+          </h2>
         </motion.div>
 
         {/* Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-wrap gap-2 mb-10"
         >
-          {categories.map((cat, i) => (
-            <motion.button
+          {categories.map((cat) => (
+            <button
               key={cat}
               onClick={() => setFilter(cat)}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.25 + i * 0.05 }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                 filter === cat
                   ? "bg-primary text-primary-foreground"
@@ -153,47 +136,40 @@ const ProjectsSection = () => {
               }`}
             >
               {cat}
-            </motion.button>
+            </button>
           ))}
         </motion.div>
 
         {/* Grid */}
-        <motion.div style={{ y: gridY }} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {filtered.map((project, i) => (
             <motion.div
               key={project.title}
               layout
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.08 * Math.min(i, 5), ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
+              transition={{ duration: 0.5, delay: 0.06 * Math.min(i, 5) }}
               className="group p-4 sm:p-6 md:p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-elevated hover:border-primary/20 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3 sm:mb-4">
                 <div className="min-w-0 flex-1 mr-3">
-                  <motion.span
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.08 * i + 0.2 }}
-                    className="text-xs font-medium text-primary uppercase tracking-wider"
-                  >
+                  <span className="text-xs font-medium text-primary uppercase tracking-wider">
                     {project.category}
-                  </motion.span>
+                  </span>
                   <h3 className="font-display text-base sm:text-lg md:text-xl font-bold text-foreground mt-1 leading-tight">
                     {project.title}
                   </h3>
                 </div>
-                <motion.a
+                <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
                   className="flex-shrink-0 flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors duration-200 mt-1"
                 >
                   <Github size={16} />
                   <ArrowUpRight size={14} />
-                </motion.a>
+                </a>
               </div>
 
               <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
@@ -209,13 +185,12 @@ const ProjectsSection = () => {
 
               <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                 {project.technologies.map((tech) => (
-                  <motion.span
+                  <span
                     key={tech}
-                    whileHover={{ scale: 1.1 }}
                     className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-md bg-secondary text-secondary-foreground"
                   >
                     {tech}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
 
@@ -224,7 +199,7 @@ const ProjectsSection = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
