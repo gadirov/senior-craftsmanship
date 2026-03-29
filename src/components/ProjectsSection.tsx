@@ -13,6 +13,24 @@ const projects = [
     github: "https://github.com/gadirov/react-rspack-ui-kit",
   },
   {
+    title: "Custom UI Kit",
+    category: "Architecture",
+    problem: "Multiple projects shared similar UI patterns but lacked a unified, reusable component library — causing inconsistency and duplicated effort.",
+    solution: "Designed and built a custom UI Kit with reusable, accessible components using React, TypeScript, and Storybook — with theming support and comprehensive documentation.",
+    technologies: ["React", "TypeScript", "Storybook", "Styled Components", "Design Tokens"],
+    impact: "Standardized UI across 3+ projects, reducing design-to-dev handoff time by 50%",
+    github: "https://github.com/gadirov",
+  },
+  {
+    title: "Micro Frontend Architecture",
+    category: "Architecture",
+    problem: "A monolithic frontend became difficult to scale, deploy independently, and maintain across multiple teams.",
+    solution: "Implemented a Micro Frontend architecture using Module Federation, enabling independent deployment of feature modules with shared runtime dependencies.",
+    technologies: ["React", "TypeScript", "Webpack Module Federation", "Nx", "CI/CD"],
+    impact: "Enabled 3 teams to deploy independently, reducing release cycle from weeks to days",
+    github: "https://github.com/gadirov",
+  },
+  {
     title: "Nx Monorepo Workspace",
     category: "Architecture",
     problem: "Managing multiple frontend applications and shared libraries across teams led to code duplication and inconsistent patterns.",
@@ -76,7 +94,6 @@ const projects = [
     github: "https://github.com/gadirov/eventeam",
   },
 ];
-
 const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
 
 const ProjectsSection = () => {
@@ -123,52 +140,52 @@ const ProjectsSection = () => {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {filtered.map((project, i) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="group p-6 sm:p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-elevated transition-all duration-300"
+              transition={{ duration: 0.5, delay: 0.1 * Math.min(i, 5) }}
+              className="group p-4 sm:p-6 md:p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-elevated transition-all duration-300"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
+              <div className="flex items-start justify-between mb-3 sm:mb-4">
+                <div className="min-w-0 flex-1 mr-3">
                   <span className="text-xs font-medium text-primary uppercase tracking-wider">{project.category}</span>
-                  <h3 className="font-display text-xl font-bold text-foreground mt-1">{project.title}</h3>
+                  <h3 className="font-display text-base sm:text-lg md:text-xl font-bold text-foreground mt-1 leading-tight">{project.title}</h3>
                 </div>
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors duration-200 mt-1"
+                  className="flex-shrink-0 flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors duration-200 mt-1"
                 >
                   <Github size={16} />
                   <ArrowUpRight size={14} />
                 </a>
               </div>
 
-              <div className="space-y-4 mb-6">
+              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                 <div>
                   <p className="text-xs font-semibold text-foreground uppercase tracking-wider mb-1">Problem</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.problem}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{project.problem}</p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-foreground uppercase tracking-wider mb-1">Solution</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.solution}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{project.solution}</p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                 {project.technologies.map((tech) => (
-                  <span key={tech} className="px-2.5 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
+                  <span key={tech} className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-border">
-                <p className="text-xs font-semibold text-primary">{project.impact}</p>
+              <div className="pt-3 sm:pt-4 border-t border-border">
+                <p className="text-[11px] sm:text-xs font-semibold text-primary">{project.impact}</p>
               </div>
             </motion.div>
           ))}
